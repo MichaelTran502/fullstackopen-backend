@@ -1,8 +1,14 @@
 const express = require('express')
+const morgan = require('morgan')
 const app = express()
 
 // activates express json parser
 app.use(express.json());
+
+// morgan middleware
+morgan.token("data", req => JSON.stringify(req.body))
+
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :data'))
 
 let persons = [
   { 
