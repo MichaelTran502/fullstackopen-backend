@@ -7,6 +7,7 @@ const morgan = require('morgan')
 // activates express json parser
 app.use(cors())
 app.use(express.json());
+app.use(express.static('build'))
 
 // morgan middleware
 morgan.token("data", req => JSON.stringify(req.body))
