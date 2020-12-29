@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 if (process.argv.length < 3) {
-  console.log('Please provide password as an argument');
+	console.log('Please provide password as an argument')
 }
 
 const password = process.argv[2]
@@ -13,29 +13,29 @@ const url = `mongodb+srv://binglee:${password}@cluster0.ha6ju.mongodb.net/phoneb
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
 
 const personSchema = new mongoose.Schema({
-  name: String,
-  number: String,
+	name: String,
+	number: String,
 })
 
 const Person = mongoose.model('Person', personSchema)
 
 if (!nameInput && !numberInput) {
-  console.log('phonebook:')
-  Person.find({}).then(result => {
-    result.forEach(person => {
-      console.log(person.name + " " + person.number)
-    })
-    mongoose.connection.close();
-  })
+	console.log('phonebook:')
+	Person.find({}).then(result => {
+		result.forEach(person => {
+			console.log(person.name + ' ' + person.number)
+		})
+		mongoose.connection.close()
+	})
 } else {
-  const person = new Person({
-    name: nameInput,
-    number: numberInput
-  })
+	const person = new Person({
+		name: nameInput,
+		number: numberInput
+	})
 
-  person.save().then(result => {
-    console.log(`added ${nameInput} number ${numberInput} to phonebook`)
-    mongoose.connection.close();
-  })
+	person.save().then(result => {
+		console.log(`added ${nameInput} number ${numberInput} to phonebook`)
+		mongoose.connection.close()
+	})
   
 }
